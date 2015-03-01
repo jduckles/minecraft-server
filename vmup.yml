@@ -24,6 +24,8 @@
   vars_files:
     - variables.yml
   tasks:
+    - name: waiting for vm to come up
+      wait_for: host=minecraft port=22 delay=60
     - name: S3 CMD
       apt: name=s3cmd state=present update_cache=yes
     - name: Ubuntu Firewall
@@ -37,7 +39,7 @@
     - ufw: state=enabled policy=allow
     - ufw: rule=allow port=22 proto=tcp
     - ufw: rule=allow port=25565 proto=tcp
-    - get_url: url={{ msm_installer }} dest=/tmp/msm mode=+x
+    - get_url: url={{ msm_installer }} dest=/tmp/msm mode=u+x
     - command: /tmp/msm
     - command: msm jargroup changeurl minecraft {{ minecraft_jar }}
     - command: msm jargroup getlatest minecraft
