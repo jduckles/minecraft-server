@@ -18,10 +18,11 @@
       - name: Add to hosts list
         add_host: hostname={{ minecraft.droplet.ip_address }} groupname=minecraft
 
+
 - hosts: minecraft
   user: root
-  vars:
-    - s3bucket: s3://jduck-minecraft-backup
+  vars_files:
+    - variables.yml
   tasks:
     - name: S3 CMD
       apt: name=s3cmd state=present update_cache=yes
@@ -29,16 +30,16 @@
       apt: name=ufw state=present
     - name: Java
       apt: name=openjdk-7-jre state=present
-    - command: copy src=~/.s3cfg dest=/root/.s3cfg creates=/root/.s3cfg
+    - action: copy src=~/.s3cfg dest=/root/.s3cfg
     - command: mkdir -m 777 -p /opt/msm/servers creates=/opt/msm/server
-    - command: s3cmd get {{ s3bucket }}/servers.tar /opt/msm/ creates=/opt/msm/servers.tar 
-    - command: cd /opt/msm && tar -xvf servers.tar
+    - command: s3cmd get {{ s3bucket }}/{{ backup_file }} /opt/msm/ creates=/opt/msm/{{ backup_file }}
+    - command: tar -xvf {{ backup_file }} chdir=/opt/msm
     - ufw: state=enabled policy=allow
     - ufw: rule=allow port=22 proto=tcp
     - ufw: rule=allow port=25565 proto=tcp
-    - get_url: url=https://raw.githubusercontent.com/jduckles/minecraft-server-manager/master/installers/debian.sh dest=/tmp/msm
-    - command: bash /tmp/msm creates=/tmp/msm
-    - action: command msm jargroup changeurl minecraft https://s3.amazonaws.com/Minecraft.Download/versions/1.8.3/minecraft_server.1.8.3.jar
-    - action: command msm jargroup getlatest minecraft
-    - action: command msm micah-ship jar minecraft
-    - action: command msm micah-ship start
+    - get_url: url={{ msm_installer }} dest=/tmp/msm mode=+x
+    - command: /tmp/msm
+    - command: msm jargroup changeurl minecraft {{ minecraft_jar }}
+    - command: msm jargroup getlatest minecraft
+    - command: msm {{ msm_server_name }} jar minecraft
+    - command: msm {{ msm_server_name }} start

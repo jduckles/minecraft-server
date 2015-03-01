@@ -1,11 +1,11 @@
 ---
 - hosts: minecraft
   user: root
-  vars:
-    - s3bucket: s3://jduck-minecraft-backup
+  vars_files:
+    - variables.yml
   tasks:
-    - command: chdir=/opt/msm tar -cvf servers_.tar servers/
-    - command: chdir=/opt/msm s3cmd put servers_.tar s3://jduck-minecraft-backup
+    - command: chdir=/opt/msm tar -cvf {{ backup_file }} servers/
+    - command: chdir=/opt/msm s3cmd put {{ backup_file }} {{ s3bucket }}
 
 - hosts: local
   connection: local

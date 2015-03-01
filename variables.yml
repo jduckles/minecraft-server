@@ -1,0 +1,5 @@
+s3bucket: s3://jduck-minecraft-backup
+backupfile: servers.tar
+msm_server_name: micah-ship
+msm_installer: https://raw.githubusercontent.com/jduckles/minecraft-server-manager/master/installers/debian.sh
+minecraft_jar: https://s3.amazonaws.com/Minecraft.Download/versions/1.8.3/minecraft_server.1.8.3.jar
