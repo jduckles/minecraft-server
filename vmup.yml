@@ -29,14 +29,15 @@
       apt: name=ufw state=present
     - name: Java
       apt: name=openjdk-7-jre state=present
-    - action: copy src=~/.s3cfg dest=/root/.s3cfg
-    - action: command mkdir -m 777 -p /opt/msm/servers
-    - action: command s3cmd sync {{ s3bucket }} /opt/msm/servers
+    - command: copy src=~/.s3cfg dest=/root/.s3cfg creates=/root/.s3cfg
+    - command: mkdir -m 777 -p /opt/msm/servers creates=/opt/msm/server
+    - command: s3cmd get {{ s3bucket }}/servers.tar /opt/msm/ creates=/opt/msm/servers.tar 
+    - command: cd /opt/msm && tar -xvf servers.tar
     - ufw: state=enabled policy=allow
     - ufw: rule=allow port=22 proto=tcp
     - ufw: rule=allow port=25565 proto=tcp
     - get_url: url=https://raw.githubusercontent.com/jduckles/minecraft-server-manager/master/installers/debian.sh dest=/tmp/msm
-    - action: command bash /tmp/msm
+    - command: bash /tmp/msm creates=/tmp/msm
     - action: command msm jargroup changeurl minecraft https://s3.amazonaws.com/Minecraft.Download/versions/1.8.3/minecraft_server.1.8.3.jar
     - action: command msm jargroup getlatest minecraft
     - action: command msm micah-ship jar minecraft
