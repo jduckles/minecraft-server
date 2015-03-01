@@ -8,3 +8,15 @@ Requirements:
 * Ansible
 
 
+### Getting Started
+This basically works, there is still one step in the ansible playbook that is failing unless run interactively...have to investigate further. But it gets me 95% of the way to a functional minecraft server.
+```
+mv config.sample config
+# Edit with your digital ocean API keys
+./up
+## Will fail at SSH step, wait a few minutes then
+./up
+## Play minecradt
+./down
+```
+
