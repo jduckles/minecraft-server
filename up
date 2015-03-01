@@ -1,2 +1,3 @@
 #!/bin/sh
+source config
 ansible-playbook -i inventory vmup.yml
