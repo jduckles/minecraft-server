@@ -1,6 +1,9 @@
-### Minecraft Server Startup
+### Intro
 My sons like to play minecraft with their aunt, my always-on $5/month Digital Ocean VM is too small to support it (not enough RAM). So I wrote this to help be bring up a Minecraft server and take it down.  `up` will set up the VM, download a tarball of saved server info, `down` backs up the server info and shuts the vm down. Still not 100%, there are a few hiccups in the playbook, but it saves me a lot of time getting things pretty damn close.
 
+I'm new to using ansible, so this is my first cut at writing a playbook. I like it, but some parts are still confoundingly weird, so appologies if it is still rough around the edges. Please file an issue or PR if you see anything that could be done better.
+
+### Minecraft Server Startup
 Requirements:
 * `s3cmd`
   * AWS S3 credentials in `.s3cmd` file. Create with `s3cmd --configure` once installed
