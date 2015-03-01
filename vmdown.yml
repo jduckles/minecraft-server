@@ -1,0 +1,24 @@
+---
+- hosts: minecraft
+  user: root
+  vars:
+    - s3bucket: s3://jduck-minecraft-backup
+  tasks:
+    - command: chdir=/opt/msm tar -cvf servers_.tar servers/
+    - command: chdir=/opt/msm s3cmd put servers_.tar s3://jduck-minecraft-backup
+
+- hosts: local
+  connection: local
+  gather_facts: False
+  tasks:
+      - name: Stop Droplet
+        digital_ocean: >
+            state=absent
+            command=droplet
+            size_id=64
+            region_id=1
+            image_id=10581649
+            ssh_key_ids=14937
+            name=minecraft
+            unique_name=yes
+            wait_timeout=500
