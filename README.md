@@ -23,7 +23,8 @@ This basically works, there is still one step in the ansible playbook that is fa
 ```
 # Edit with your digital ocean API keys
 ./up
-## Will fail at SSH step as server doesn't come up instantly, wait a few minutes then (gotta fix that)
+## Will fail at SSH step as server doesn't come up instantly, wait a few minutes 
+##   then try again(gotta fix that)
 ./up
 ## Play minecraft for as long as you're willing to pay for the VM
 ./down
