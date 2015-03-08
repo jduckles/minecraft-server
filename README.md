@@ -1,7 +1,7 @@
 ### Intro
 My sons like to play minecraft with their aunt, my always-on $5/month Digital Ocean VM is too small to support it (not enough RAM). So I wrote this to help be bring up a Minecraft server and take it down.  `up` will set up the VM, download a tarball of saved server info, `down` backs up the server info and shuts the vm down. Still not 100%, there are a few hiccups in the playbook, but it saves me a lot of time getting things pretty damn close.
 
-I'm new to using ansible, so this is my first cut at writing a playbook. I like it, but some parts are still confoundingly weird, so appologies if it is still rough around the edges. Please file an issue or PR if you see anything that could be done better.
+I'm new to using ansible, so this is my first cut at writing a cloud orchestrating playbook.
 
 ### Minecraft Server Startup
 Requirements:
@@ -15,7 +15,7 @@ Requirements:
 
 
 ### Getting Started
-This basically works, there is still one step in the ansible playbook that is failing unless run interactively...have to investigate further. But it gets me 95% of the way to a functional minecraft server.
+But it gets me 95% of the way to a functional minecraft server.
 1. `mv config.sample config`
 2. tweak variables.yml for your needs, this assumes you already have server backups, so you may need to manually `msm server create ...` your server and get it in an appropriate s3 bucket first.
 
@@ -31,10 +31,9 @@ Then to use, it should be a matter of:
 ```
 # Edit with your digital ocean API keys
 ./up
-## Will fail at SSH step as server doesn't come up instantly, wait a few minutes 
+## Will fail at SSH step as server doesn't come up instantly, wait a few minutes
 ##   then try again(gotta fix that)
 ./up
 ## Play minecraft for as long as you're willing to pay for the VM
 ./down
 ```
-
