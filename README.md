@@ -19,6 +19,14 @@ This basically works, there is still one step in the ansible playbook that is fa
 1. `mv config.sample config`
 2. tweak variables.yml for your needs, this assumes you already have server backups, so you may need to manually `msm server create ...` your server and get it in an appropriate s3 bucket first.
 
+You may want to set the following in your `~/.ansible.cfg`
+
+```
+[defaults]
+host_key_checking = False
+```
+
+Then to use, it should be a matter of:
 
 ```
 # Edit with your digital ocean API keys
