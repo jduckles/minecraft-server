@@ -1,5 +1,5 @@
 ### Intro
-My sons like to play minecraft with their aunt, my always-on $5/month Digital Ocean VM is too small to support it (not enough RAM). So I wrote this to help be bring up a Minecraft server and take it down.  `up` will set up the VM, download a tarball of saved server info, `down` backs up the server info and shuts the vm down. Still not 100%, there are a few hiccups in the playbook, but it saves me a lot of time getting things pretty damn close.
+My sons like to play minecraft, so I wrote this to help be bring up a Minecraft server and take it down without paying to keep it up all the time.  `up` will set up the VM, download a tarball of saved server info, `down` backs up the server info and shuts the vm down. Still not 100%, there are a few hiccups in the playbook, but it saves me a lot of time getting things pretty damn close.
 
 I'm new to using ansible, so this is my first cut at writing a cloud orchestrating playbook.
 
