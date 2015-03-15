@@ -7,7 +7,7 @@
         digital_ocean: >
             state=present
             command=droplet
-            size_id=64
+            size_id=62
             region_id=1
             image_id=10581649
             ssh_key_ids=14937
